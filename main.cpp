@@ -35,8 +35,8 @@ using namespace std;
 
 int main(int argc,char*argv[])
 {
-  int h = 480;
-  int w = 640;
+  int h = atoi(argv[4]);
+  int w = atoi(argv[3]);
 	
   //alloc memory
   unsigned char***img1=bao_alloc<unsigned char>(h,w,3);
@@ -53,8 +53,8 @@ int main(int argc,char*argv[])
   //read images 
   cout << "loading image ... " << endl;
   int nchannels = 0;
-  bao_loadimage_ppm("frame10.ppm",img1[0][0],h,w,&nchannels);//load image
-  bao_loadimage_ppm("frame11.ppm",img2[0][0],h,w,&nchannels);//load image
+  bao_loadimage_ppm(argv[1],img1[0][0],h,w,&nchannels);//load image
+  bao_loadimage_ppm(argv[2],img2[0][0],h,w,&nchannels);//load image
 
   cout << "Processing (image size " << w << " * " << h << " * " << nchannels << ")...\n";
   bao_timer_gpu_cpu timer; 
@@ -66,7 +66,7 @@ int main(int argc,char*argv[])
   timer.time_display("GPU");
   
   cout << "Saving flo file..." << h << "*" << w << endl;
-  bao_save_flo_file("flow.flo",disp1_x,disp1_y,h,w);
+  bao_save_flo_file(argv[5],disp1_x,disp1_y,h,w);
 
   bao_free(img1);
   bao_free(img2);
